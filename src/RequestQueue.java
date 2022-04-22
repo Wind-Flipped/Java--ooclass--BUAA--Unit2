@@ -17,12 +17,12 @@ public class RequestQueue {
     }
 
     public synchronized boolean isEnd() {
-        notifyAll();
+        //notifyAll();
         return isEnd;
     }
 
     public synchronized boolean isEmpty() {
-        notifyAll();
+        //notifyAll();
         return personRequests.isEmpty();
     }
 
@@ -40,7 +40,7 @@ public class RequestQueue {
     public synchronized void setPersonRequests(ArrayList<PersonRequest> personRequests) {
         //synchronized (this.personRequests) {
         this.personRequests = personRequests;
-        notifyAll();
+        //notifyAll();
         //}
     }
 
@@ -59,7 +59,7 @@ public class RequestQueue {
         }
         PersonRequest personRequest = personRequests.get(0);
         personRequests.remove(0);
-        notifyAll();
+        //notifyAll();
         return personRequest;
     }
 
@@ -74,9 +74,8 @@ public class RequestQueue {
         if (personRequests.isEmpty()) {
             return null;
         }
-        PersonRequest personRequest = personRequests.get(0);
-        notifyAll();
-        return personRequest;
+        //notifyAll();
+        return personRequests.get(0);
     }
 
     public synchronized int getLowestFromFloor() {

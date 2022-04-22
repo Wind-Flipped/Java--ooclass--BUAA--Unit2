@@ -37,13 +37,13 @@ public class Main {
         //初始1部横向电梯
         Elevator runnable = new Elevator(6, 'A',
                 1, horizontalProcesses.get(0), 8, 0.6, 31);
-        Thread elevator1 = new Thread(runnable,"Elevator 6");
+        Thread elevator1 = new Thread(runnable, "Elevator 6");
         elevator1.start();
         //Schedule 决定是横向还是纵向
         RequestQueue waitQueue = new RequestQueue();
         Schedule myRunnable = new Schedule(waitQueue,
                 processingVerticalQueues, processingHorizontalQueues);
-        Thread schedule = new Thread(myRunnable,"Schedule");
+        Thread schedule = new Thread(myRunnable, "Schedule");
         schedule.start();
 
         InputThread inputThread = new InputThread(

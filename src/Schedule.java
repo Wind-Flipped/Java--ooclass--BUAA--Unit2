@@ -34,7 +34,9 @@ public class Schedule implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (waitQueue.isEmpty() && waitQueue.isEnd() && EXCHANGE_LIST.isEmpty()) {
+            if (waitQueue.isEmpty() && waitQueue.isEnd()) {
+                //需要等待流水线完成
+                preReturn();
                 for (RequestQueue processingQueue : verticalQueues) {
                     processingQueue.setEnd(true);
                 }
@@ -42,7 +44,7 @@ public class Schedule implements Runnable {
                     processingQueue.setEnd(true);
                 }
                 //OutputThread.println("Schedule End!!!");
-                return;
+                break;
             }
             PersonRequest personRequest = waitQueue.getOneRequest();
             if (personRequest == null) {
@@ -55,6 +57,16 @@ public class Schedule implements Runnable {
             } else {
                 addRequest(personRequest);
                 //TimableOutput.println(personRequest.getPersonId() + " is in the queue!");
+            }
+        }
+    }
+
+    public synchronized void preReturn() {
+        while (!EXCHANGE_LIST.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -172,5 +184,6 @@ public class Schedule implements Runnable {
         } else {
             horizontalQueues.get(personRequest.getFromFloor() - 1).addPersonRequest(personRequest);
         }
+        notifyAll();
     }
 }
