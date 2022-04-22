@@ -47,32 +47,6 @@ public class VerticalProcess implements Process {
             } else if (elevator.getFloor() > fromFloor) {
                 goDown(elevator);
             }
-
-            //            elevators[0].openElevator();
-            //            elevators[0].addPersonRequest(request, elevators[0].getFloor() < toFloor);
-            //            elevators[0].closeElevator();
-            //judgeOpen(true, elevators[0].getFloor(), elevators[0].getFloor() < toFloor);
-            //接完人后
-            //            if (elevators[0].getFloor() < toFloor) {
-            //                while (elevators[0].getFloor() < elevators[0].getMaxDestination()) {
-            //                    try {
-            //                        willOpen = elevators[0].upElevator();
-            //                    } catch (InterruptedException e) {
-            //                        e.printStackTrace();
-            //                    }
-            //                    judgeOpen(willOpen, elevators[0].getFloor(), true);
-            //                }
-            //            } else {
-            //                while (elevators[0].getFloor() > elevators[0].getMinDestination()) {
-            //                    try {
-            //                        willOpen = elevators[0].downElevator();
-            //                    } catch (InterruptedException e) {
-            //                        e.printStackTrace();
-            //                    }
-            //                    judgeOpen(willOpen, elevators[0].getFloor(), false);
-            //                }
-            //            }
-            //notifyAll();
         }
     }
 

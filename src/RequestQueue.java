@@ -27,7 +27,9 @@ public class RequestQueue {
     }
 
     public synchronized void addPersonRequest(PersonRequest personRequest) {
+        //synchronized (personRequests) {
         personRequests.add(personRequest);
+        //}
         notifyAll();
     }
 
@@ -35,11 +37,11 @@ public class RequestQueue {
         return personRequests;
     }
 
-    public void setPersonRequests(ArrayList<PersonRequest> personRequests) {
-        synchronized (this.personRequests) {
-            this.personRequests = personRequests;
-            notifyAll();
-        }
+    public synchronized void setPersonRequests(ArrayList<PersonRequest> personRequests) {
+        //synchronized (this.personRequests) {
+        this.personRequests = personRequests;
+        notifyAll();
+        //}
     }
 
     public synchronized PersonRequest getOneRequest() {
@@ -77,33 +79,33 @@ public class RequestQueue {
         return personRequest;
     }
 
-    public int getLowestFromFloor() {
+    public synchronized int getLowestFromFloor() {
         int lowestFromFloor = Elevator.MAX_FLOOR;
         if (personRequests.isEmpty()) {
             return lowestFromFloor;
         }
-        synchronized (personRequests) {
-            for (PersonRequest entry : personRequests) {
-                if (entry.getFromFloor() < lowestFromFloor) {
-                    lowestFromFloor = entry.getFromFloor();
-                }
+        ////synchronized (personRequests) {
+        for (PersonRequest entry : personRequests) {
+            if (entry.getFromFloor() < lowestFromFloor) {
+                lowestFromFloor = entry.getFromFloor();
             }
         }
+        //}
         return lowestFromFloor;
     }
 
-    public int getHighestFromFloor() {
+    public synchronized int getHighestFromFloor() {
         int highestFromFloor = Elevator.MIN_FLOOR;
         if (personRequests.isEmpty()) {
             return highestFromFloor;
         }
-        synchronized (personRequests) {
-            for (PersonRequest entry : personRequests) {
-                if (entry.getFromFloor() > highestFromFloor) {
-                    highestFromFloor = entry.getFromFloor();
-                }
+        //synchronized (personRequests) {
+        for (PersonRequest entry : personRequests) {
+            if (entry.getFromFloor() > highestFromFloor) {
+                highestFromFloor = entry.getFromFloor();
             }
         }
+        //}
         return highestFromFloor;
     }
 }
