@@ -98,8 +98,12 @@ public class Schedule implements Runnable {
                             if (nowFloor <= crossFloor) {
                                 crossFloor = nowFloor;
                                 suitableFloor = i;
+                                break;
                             }
                         }
+                    }
+                    if (suitableFloor == fromFloor || suitableFloor == toFloor) {
+                        break;
                     }
                 }
             }
@@ -112,8 +116,12 @@ public class Schedule implements Runnable {
                             if (nowFloor <= crossFloor) {
                                 crossFloor = nowFloor;
                                 suitableFloor = i;
+                                break;
                             }
                         }
+                    }
+                    if (suitableFloor == fromFloor || suitableFloor == toFloor) {
+                        break;
                     }
                 }
             }
